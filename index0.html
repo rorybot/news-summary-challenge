@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>News Reader</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h1>News Reader</h1>
+    <div id="buddy">
+      <img src="images/buddy.png" width="600">
+    </div>
+    <form action="/" method="GET" enctype="multipart/form-data" >
+      <textarea id ="note" name="note"></textarea>
+      <input id="create_note" class="button" type="submit" value="Create">
+    </form>
+
+    <div id="single_note"></div>
+    <div id="note_list"></div>
+
+    <script src="src/NewsGrabber.js"></script>
+    <script src="src/note.js"></script>
+    <script src="src/noteBuddy.js"></script>
+    <script src="src/buddy.js"></script>
+    <script src="src/renderer.js"></script>
+    <script src="src/controller.js"></script>
+  </body>
+</html>

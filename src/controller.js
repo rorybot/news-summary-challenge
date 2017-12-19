@@ -1,29 +1,51 @@
+createNote();
+showSingleNote();
 
-showNewsSummary();
-
-var huwEdwards = new HuwEdwards();
 var newsGrabber = new NewsGrabber();
-newsGrabber.apiCallRecord();
-newsGrabber.parseCall();
+var noteBuddy = new NoteBuddy();
+var buddy = new Buddy();
 var renderer = new Renderer();
 
+newsGrabber.grabHeadlines(function(value){
+  var renderedHeadlines = renderer.renderLinks(value.response.results)
+  var values = {
+    note_list: renderedHeadlines,
+  }
+  renderer.view(values)
+})
 
 
-function showNewsSummary() {
+function createNote() {
+  document
+  .getElementById("create_note")
+  .addEventListener("click", function(clickEvent) {
+    clickEvent.preventDefault();
+    _noteCreationCall()
+    _renderLinks()
+  });
+}
+
+function showSingleNote() {
   window
-    .addEventListener("hashchange", function(showNewsSummary) {
-      var newsIndex = location.hash.split("$")[1];
+    .addEventListener("hashchange", function(showNote) {
+      var noteIndex = location.hash.split("$")[1];
       var values = {
-        newsItemSummary: huwEdwards.newsSummary(newsIndex)
+        single_note: renderer.singleNote(noteIndex, noteBuddy.list)
       };
       renderer.view(values);
     });
 }
 
+function _noteCreationCall(){
+  var text = document.getElementById("note").value;
+  noteBuddy.createNote(text);
+}
 
-function displayHeadlines(newsGrabber){
-  console.log('1')
-  formattedHeadlines = huwEdwards.headlinesList(newsGrabber.headlines)
-  var values = {list_of_headlines: formattedHeadlines}
+function _renderLinks(){
+  var renderedLinks = renderer.renderLinks(noteBuddy.list)
+  var values = {
+    note_list: renderedLinks,
+    buddy: buddy.createNote()
+  };
   renderer.view(values);
 }
